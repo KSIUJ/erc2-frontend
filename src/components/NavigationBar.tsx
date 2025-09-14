@@ -17,10 +17,12 @@ import {
 	IconClock,
 	IconSettings,
 	IconSchool,
+	IconCalendar,
 	IconLock,
 	IconFileText,
 	IconLockOpen,
 } from "@tabler/icons-react";
+import { ROUTES, type RoutePath } from "../constants/routes";
 
 interface NavigationBarProps {
 	isAdmin: boolean;
@@ -28,8 +30,12 @@ interface NavigationBarProps {
 
 interface NavigationItemData {
 	label: string;
-	icon: React.ComponentType<{ size?: string | number; stroke?: number }>;
-	path?: string;
+	icon: React.ComponentType<{
+		size?: string | number;
+		stroke?: number;
+		className?: string;
+	}>;
+	path?: RoutePath;
 	children?: NavigationItemData[];
 }
 
@@ -96,12 +102,12 @@ export default function NavigationBar({ isAdmin }: NavigationBarProps) {
 		{
 			label: "Strona główna",
 			icon: IconHome,
-			path: "/",
+			path: ROUTES.HOME,
 		},
 		{
 			label: "Informacje o użytkowniku",
 			icon: IconUser,
-			path: "/user-info",
+			path: ROUTES.USER_INFO,
 		},
 		...(isAdmin
 			? [
@@ -112,17 +118,17 @@ export default function NavigationBar({ isAdmin }: NavigationBarProps) {
 							{
 								label: "Lista członków",
 								icon: IconList,
-								path: "/members",
+								path: ROUTES.MEMBERS,
 							},
 							{
 								label: "Dodaj członka",
 								icon: IconPlus,
-								path: "/add-member",
+								path: ROUTES.ADD_MEMBER,
 							},
 							{
 								label: "Przedłuż członkostwo",
 								icon: IconClock,
-								path: "/extend-membership",
+								path: ROUTES.EXTEND_MEMBERSHIP,
 							},
 						] as NavigationItemData[],
 					},
@@ -133,22 +139,32 @@ export default function NavigationBar({ isAdmin }: NavigationBarProps) {
 							{
 								label: "Lista ról",
 								icon: IconList,
-								path: "/roles",
+								path: ROUTES.ROLES,
 							},
 							{
 								label: "Dodaj rolę",
 								icon: IconPlus,
-								path: "/add-role",
+								path: ROUTES.ADD_ROLE,
 							},
 							{
 								label: "Kierunki studiów",
 								icon: IconSchool,
-								path: "/majors",
+								path: ROUTES.MAJORS,
 							},
 							{
 								label: "Dodaj kierunek",
 								icon: IconPlus,
-								path: "/add-major",
+								path: ROUTES.ADD_MAJOR,
+							},
+							{
+								label: "Lista okresów",
+								icon: IconCalendar,
+								path: ROUTES.PERIODS,
+							},
+							{
+								label: "Dodaj okres",
+								icon: IconPlus,
+								path: ROUTES.ADD_PERIOD,
 							},
 						] as NavigationItemData[],
 					},
@@ -159,17 +175,17 @@ export default function NavigationBar({ isAdmin }: NavigationBarProps) {
 							{
 								label: "Lista zamków",
 								icon: IconList,
-								path: "/locks",
+								path: ROUTES.LOCKS,
 							},
 							{
 								label: "Logi zamków",
 								icon: IconFileText,
-								path: "/lock-logs",
+								path: ROUTES.LOCK_LOGS,
 							},
 							{
 								label: "Zdalny dostęp",
 								icon: IconLockOpen,
-								path: "/remote-unlock",
+								path: ROUTES.REMOTE_UNLOCK,
 							},
 						] as NavigationItemData[],
 					},
@@ -180,7 +196,10 @@ export default function NavigationBar({ isAdmin }: NavigationBarProps) {
 	return (
 		<AppShellNavbar p="md">
 			<Group justify="space-between" mb="lg">
-				<Link to="/" style={{ textDecoration: "none", color: "inherit" }}>
+				<Link
+					to={ROUTES.HOME}
+					style={{ textDecoration: "none", color: "inherit" }}
+				>
 					<Text fw={600} size="lg" c="blue">
 						ERC 2.0 Panel
 					</Text>

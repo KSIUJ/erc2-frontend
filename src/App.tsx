@@ -4,6 +4,7 @@ import { AppShell, AppShellMain, MantineProvider } from "@mantine/core";
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import { theme } from "./theme";
 import NavigationBar from "./components/NavigationBar";
+import { ROUTES } from "./constants/routes";
 
 // Import wszystkich stron
 import MainPage from "./pages/MainPage";
@@ -15,6 +16,8 @@ import RolesList from "./pages/RolesList";
 import AddRole from "./pages/AddRole";
 import MajorsList from "./pages/MajorsList";
 import AddMajor from "./pages/AddMajor";
+import PeriodsList from "./pages/PeriodsList";
+import AddPeriod from "./pages/AddPeriod";
 import LocksList from "./pages/LocksList";
 import LockLogs from "./pages/LockLogs";
 import RemoteUnlock from "./pages/RemoteUnlock";
@@ -83,7 +86,7 @@ export default function App() {
 						<Routes>
 							{/* Strona główna */}
 							<Route
-								path="/"
+								path={ROUTES.HOME}
 								element={
 									<MainPage
 										isAdmin={isAdmin}
@@ -93,11 +96,11 @@ export default function App() {
 							/>
 
 							{/* Strony dostępne dla wszystkich */}
-							<Route path="/user-info" element={<UserInfo />} />
+							<Route path={ROUTES.USER_INFO} element={<UserInfo />} />
 
 							{/* Strony tylko dla administratorów */}
 							<Route
-								path="/members"
+								path={ROUTES.MEMBERS}
 								element={
 									<AdminRoute isAdmin={isAdmin}>
 										<MembersList />
@@ -105,7 +108,7 @@ export default function App() {
 								}
 							/>
 							<Route
-								path="/add-member"
+								path={ROUTES.ADD_MEMBER}
 								element={
 									<AdminRoute isAdmin={isAdmin}>
 										<AddMember />
@@ -113,7 +116,7 @@ export default function App() {
 								}
 							/>
 							<Route
-								path="/extend-membership"
+								path={ROUTES.EXTEND_MEMBERSHIP}
 								element={
 									<AdminRoute isAdmin={isAdmin}>
 										<ExtendMembership />
@@ -121,7 +124,7 @@ export default function App() {
 								}
 							/>
 							<Route
-								path="/roles"
+								path={ROUTES.ROLES}
 								element={
 									<AdminRoute isAdmin={isAdmin}>
 										<RolesList />
@@ -129,7 +132,7 @@ export default function App() {
 								}
 							/>
 							<Route
-								path="/add-role"
+								path={ROUTES.ADD_ROLE}
 								element={
 									<AdminRoute isAdmin={isAdmin}>
 										<AddRole />
@@ -137,7 +140,7 @@ export default function App() {
 								}
 							/>
 							<Route
-								path="/majors"
+								path={ROUTES.MAJORS}
 								element={
 									<AdminRoute isAdmin={isAdmin}>
 										<MajorsList />
@@ -145,7 +148,7 @@ export default function App() {
 								}
 							/>
 							<Route
-								path="/add-major"
+								path={ROUTES.ADD_MAJOR}
 								element={
 									<AdminRoute isAdmin={isAdmin}>
 										<AddMajor />
@@ -153,7 +156,23 @@ export default function App() {
 								}
 							/>
 							<Route
-								path="/locks"
+								path={ROUTES.PERIODS}
+								element={
+									<AdminRoute isAdmin={isAdmin}>
+										<PeriodsList />
+									</AdminRoute>
+								}
+							/>
+							<Route
+								path={ROUTES.ADD_PERIOD}
+								element={
+									<AdminRoute isAdmin={isAdmin}>
+										<AddPeriod />
+									</AdminRoute>
+								}
+							/>
+							<Route
+								path={ROUTES.LOCKS}
 								element={
 									<AdminRoute isAdmin={isAdmin}>
 										<LocksList />
@@ -161,7 +180,7 @@ export default function App() {
 								}
 							/>
 							<Route
-								path="/lock-logs"
+								path={ROUTES.LOCK_LOGS}
 								element={
 									<AdminRoute isAdmin={isAdmin}>
 										<LockLogs />
@@ -169,7 +188,7 @@ export default function App() {
 								}
 							/>
 							<Route
-								path="/remote-unlock"
+								path={ROUTES.REMOTE_UNLOCK}
 								element={
 									<AdminRoute isAdmin={isAdmin}>
 										<RemoteUnlock />
@@ -178,7 +197,7 @@ export default function App() {
 							/>
 
 							{/* Przekierowanie nieznanych tras na stronę główną */}
-							<Route path="*" element={<Navigate to="/" replace />} />
+							<Route path="*" element={<Navigate to={ROUTES.HOME} replace />} />
 						</Routes>
 					</AppShellMain>
 				</AppShell>
